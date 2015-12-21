@@ -1481,7 +1481,7 @@ $(hide) $(PRIVATE_CXX) \
 	-nostdlib -Wl,-soname,$(notdir $@) \
 	-Wl,--gc-sections \
 	-Wl,-shared,-Bsymbolic \
-	$(if $(filter true,$(PRIVATE_CLANG)),-shared,-Wl$(comma)-shared) \
+	-shared \
 	$(PRIVATE_TARGET_GLOBAL_LD_DIRS) \
 	$(if $(filter true,$(PRIVATE_NO_CRT)),,$(PRIVATE_TARGET_CRTBEGIN_SO_O)) \
 	$(PRIVATE_ALL_OBJECTS) \
