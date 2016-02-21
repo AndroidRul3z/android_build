@@ -637,6 +637,24 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   if HasVendorPartition(input_zip):
     system_progress -= 0.1
 
+  script.Print("*********************************************");
+  script.Print("*  ______           _ _               ,     *");
+  script.Print("*  | ___ \         (_) |          /\^/`\    *");
+  script.Print("*  | |_/ /   _ _ __ _| |_ _   _  | \/   |   *");
+  script.Print("*  |  __/ | | | '__| | __| | | | | |    |   *");
+  script.Print("*  | |  | |_| | |  | | |_| |_| | \ \    /   *");
+  script.Print("*  \_|   \__,_|_|  |_|\__|\__, |   \\//'     *");
+  script.Print("*                          __/ |    ||      *");
+  script.Print("*   _____                 |___/     ||      *");
+  script.Print("*  |  __ \                          || ,    *");
+  script.Print("*  | |__) |___  _ __ ___        |\  ||  |\  *");
+  script.Print("*  |  _  // _ \| '_ ` _ \       | | ||  | | *");
+  script.Print("*  | | \ \ (_) | | | | | |      | | || / /  *");
+  script.Print("*  |_|  \_\___/|_| |_| |_|       \ \||/ /   *");
+  script.Print("*                                 `\\//`     *");
+  script.Print("*                                ^^^^^^^^   *");
+  script.Print("*********************************************");
+
   if not OPTIONS.wipe_user_data:
     script.AppendExtra("if is_mounted(\"/data\") then")
     script.ValidateSignatures("data")
