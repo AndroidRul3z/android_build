@@ -2519,4 +2519,3 @@ check_bash_version && {
 }
 
 export ANDROID_BUILD_TOP=$(gettop)
-
