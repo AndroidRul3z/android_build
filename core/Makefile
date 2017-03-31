@@ -13,6 +13,13 @@ else
   FILE_NAME_TAG := $(BUILD_NUMBER)
 endif
 
+# Assume non-release recoveries to skip signature check
+ifeq ($(TARGET_BUILD_VARIANT),user)
+    sign_arg := -k $(KEY_CERT_PAIR)
+else
+    sign_arg := --no_signing
+endif
+
 # -----------------------------------------------------------------
 # Define rules to copy PRODUCT_COPY_FILES defined by the product.
 # PRODUCT_COPY_FILES contains words like <source file>:<dest file>[:<owner>].
@@ -287,17 +294,17 @@ endif
 # vendor build.prop
 #
 # For verifying that the vendor build is what we thing it is
-#ifdef BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE
-#INSTALLED_VENDOR_BUILD_PROP_TARGET := $(TARGET_OUT_VENDOR)/build.prop
-#ALL_DEFAULT_INSTALLED_MODULES += $(INSTALLED_VENDOR_BUILD_PROP_TARGET)
-#$(INSTALLED_VENDOR_BUILD_PROP_TARGET): $(INSTALLED_BUILD_PROP_TARGET)
-#	@echo Target vendor buildinfo: $@
-#	@mkdir -p $(dir $@)
-#	$(hide) echo > $@
-#	$(hide) echo ro.vendor.build.date=`$(DATE_FROM_FILE)`>>$@
-#	$(hide) echo ro.vendor.build.date.utc=`$(DATE_FROM_FILE) +%s`>>$@
-#	$(hide) echo ro.vendor.build.fingerprint="$(BUILD_FINGERPRINT_FROM_FILE)">>$@
-#endif
+ifdef BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE
+INSTALLED_VENDOR_BUILD_PROP_TARGET := $(TARGET_OUT_VENDOR)/build.prop
+ALL_DEFAULT_INSTALLED_MODULES += $(INSTALLED_VENDOR_BUILD_PROP_TARGET)
+$(INSTALLED_VENDOR_BUILD_PROP_TARGET): $(INSTALLED_BUILD_PROP_TARGET)
+	@echo Target vendor buildinfo: $@
+	@mkdir -p $(dir $@)
+	$(hide) echo > $@
+	$(hide) echo ro.vendor.build.date=`$(DATE_FROM_FILE)`>>$@
+	$(hide) echo ro.vendor.build.date.utc=`$(DATE_FROM_FILE) +%s`>>$@
+	$(hide) echo ro.vendor.build.fingerprint="$(BUILD_FINGERPRINT_FROM_FILE)">>$@
+endif
 
 # ----------------------------------------------------------------
 
@@ -2093,7 +2100,7 @@ $(INTERNAL_OTA_PACKAGE_TARGET): $(BUILT_TARGET_FILES_PACKAGE)
 	   $(OTA_FROM_TARGET_SCRIPT) -v \
 	   $(if $(CUSTOM_BUILD),, --block) \
 	   -p $(HOST_OUT) \
-	   -k $(KEY_CERT_PAIR) \
+	   $(sign_arg) \
 	   --backup=$(backuptool) \
 	   --override_device=$(override_device) $(override_prop) \
 	   $(if $(OEM_OTA_CONFIG), -o $(OEM_OTA_CONFIG)) \
