@@ -36,18 +36,16 @@ except ImportError:
 
 # Config
 # set this to the default remote to use in repo
-default_rem = "omnirom"
+default_rem = "github"
 # set this to the default revision to use (branch/tag name)
 default_rev = "android-7.1"
 # set this to the remote that you use for projects from your team repos
 # example fetch="https://github.com/omnirom"
-default_team_rem = "omnirom"
+default_team_rem = "github"
 # this shouldn't change unless google makes changes
 local_manifest_dir = ".repo/local_manifests"
 # change this to your name on github (or equivalent hosting)
-android_team = "omnirom"
-# url to gerrit repository
-gerrit_url = "gerrit.omnirom.org"
+android_team = "purity-devices"
 
 
 def check_repo_exists(git_data, device):
@@ -58,29 +56,6 @@ def check_repo_exists(git_data, device):
                         "exiting roomservice".format(device=device))
 
     return git_data[matches[0]]
-
-
-def search_gerrit_for_device(device):
-    # TODO: In next gerrit release regex search with r= should be supported!
-    git_search_url = "https://{gerrit_url}/projects/?m={device}".format(
-        gerrit_url=gerrit_url,
-        device=device
-    )
-    git_req = urllib.request.Request(git_search_url)
-    try:
-        response = urllib.request.urlopen(git_req)
-    except urllib.request.HTTPError as e:
-        print("There was an issue connecting to gerrit."
-                        " Please try again in a minute")
-    except urllib.request.URLError as e:
-        print("WARNING: No network connection available.")
-    else:
-        # Skip silly gerrit "header"
-        response.readline()
-        git_data = json.load(response)
-        device_data = check_repo_exists(git_data, device)
-        print("found the {} device repo".format(device))
-        return device_data
 
 
 def parse_device_directory(device_url, device):
@@ -207,7 +182,7 @@ def parse_device_from_folder(device):
 
 
 def parse_dependency_file(location):
-    dep_file = "omni.dependencies"
+    dep_file = "purity.dependencies"
     dep_location = '/'.join([location, dep_file])
     if not os.path.isfile(dep_location):
         print("WARNING: %s file not found" % dep_location)
@@ -269,7 +244,7 @@ def create_dependency_manifest(dependencies):
 
 
 def create_common_dependencies_manifest(dependencies):
-    dep_file = "omni.dependencies"
+    dep_file = "purity.dependencies"
     common_list = []
     if dependencies is not None:
         for dependency in dependencies:
