@@ -560,7 +560,7 @@ function breakfast()
     CUSTOM_DEVICES_ONLY="true"
     unset LUNCH_MENU_CHOICES
     add_lunch_combo full-eng
-    for f in `/bin/ls vendor/omni/vendorsetup.sh 2> /dev/null`
+    for f in `/bin/ls vendor/purity/vendorsetup.sh 2> /dev/null`
         do
             echo "including $f"
             . $f
@@ -576,11 +576,11 @@ function breakfast()
             # A buildtype was specified, assume a full device name
             lunch $target
         else
-            # This is probably just the omni model name
+            # This is probably just the purity model name
             if [ -z "$variant" ]; then
                 variant="userdebug"
             fi
-            lunch omni_$target-$variant
+            lunch purity_$target-$variant
         fi
     fi
     return $?
@@ -667,8 +667,8 @@ function lunch()
         return 1
     fi
 
-    if (echo -n $product | grep -q -e "^omni_") ; then
-       CUSTOM_BUILD=$(echo -n $product | sed -e 's/^omni_//g')
+    if (echo -n $product | grep -q -e "^purity_") ; then
+       CUSTOM_BUILD=$(echo -n $product | sed -e 's/^purity_//g')
     else
        CUSTOM_BUILD=
     fi
