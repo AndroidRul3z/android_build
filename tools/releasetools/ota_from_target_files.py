@@ -706,16 +706,23 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   if HasVendorPartition(input_zip):
     system_progress -= 0.1
 
-  script.Print("#######################################");
-  script.Print("# _____            __  __  ______     #");
-  script.Print("#/\  __`\  /'\_/`\/\ \/\ \/\__  _\    #");
-  script.Print("#\ \ \/\ \/\  ``  \ \ ` \ \/_/\ \/    #");
-  script.Print("# \ \ \ \ \ \ \__\ \ \ . ` \ \ \ \    #");
-  script.Print("#  \ \ \_\ \ \ \_/\ \ \ \`\ \ \_\ \__ #");
-  script.Print("#   \ \_____\ \_\, \_\ \_\ \_\/\_____\#");
-  script.Print("#    \/_____/\/_/ \/_/\/_/\/_/\/_____/#");
-  script.Print("#                                     #");
-  script.Print("#######################################");
+  script.Print("*********************************************");
+  script.Print("*  ______           _ _               ,     *");
+  script.Print("*  | ___ \         (_) |          /\^/`\    *");
+  script.Print("*  | |_/ /   _ _ __ _| |_ _   _  | \/   |   *");
+  script.Print("*  |  __/ | | | '__| | __| | | | | |    |   *");
+  script.Print("*  | |  | |_| | |  | | |_| |_| | \ \    /   *");
+  script.Print("*  \_|   \__,_|_|  |_|\__|\__, |   \\//'     *");
+  script.Print("*                          __/ |    ||      *");
+  script.Print("*   _____                 |___/     ||      *");
+  script.Print("*  |  __ \                          || ,    *");
+  script.Print("*  | |__) |___  _ __ ___        |\  ||  |\  *");
+  script.Print("*  |  _  // _ \| '_ ` _ \       | | ||  | | *");
+  script.Print("*  | | \ \ (_) | | | | | |      | | || / /  *");
+  script.Print("*  |_|  \_\___/|_| |_| |_|       \ \||/ /   *");
+  script.Print("*                                 `\\//`     *");
+  script.Print("*                                ^^^^^^^^   *");
+  script.Print("*********************************************");
 
   # Place a copy of file_contexts.bin into the OTA package which will be used
   # by the recovery program.
@@ -795,7 +802,7 @@ else if get_stage("%(bcb_dev)s") == "3/3" then
   script.WriteRawImage("/boot", "boot.img")
 
   script.ShowProgress(0.2, 10)
-  script.Print("Enjoy OMNI ROM!");
+  script.Print("Enjoy!");
   device_specific.FullOTA_InstallEnd()
 
   if OPTIONS.extra_script is not None:
