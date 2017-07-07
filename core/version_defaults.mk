@@ -131,7 +131,7 @@ ifeq "" "$(PLATFORM_SECURITY_PATCH)"
     #  It must be of the form "YYYY-MM-DD" on production devices.
     #  It must match one of the Android Security Patch Level strings of the Public Security Bulletins.
     #  If there is no $PLATFORM_SECURITY_PATCH set, keep it empty.
-      PLATFORM_SECURITY_PATCH := 2017-06-05
+      PLATFORM_SECURITY_PATCH := 2017-07-05
 endif
 
 ifeq "" "$(PLATFORM_BASE_OS)"
@@ -175,3 +175,4 @@ ifeq "" "$(BUILD_NUMBER)"
   # anyone trying to parse it as an integer will probably get "0".
   BUILD_NUMBER := eng.$(shell echo $${USER:0:6}).$(shell $(DATE) +%Y%m%d.%H%M%S)
 endif
+
